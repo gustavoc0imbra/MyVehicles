@@ -89,6 +89,17 @@ class _HomePageState extends State<HomePage> {
         String data = utf8.decode(response.bodyBytes);
         vehicles.add(jsonDecode(data));
       });
+
+      showDialog(context: context, builder: (BuildContext context) => AlertDialog(
+        title: const Text('Sucesso'),
+        content: const Text("Sucesso ao salvar informações sobre o veículo! Favor Consultar a lista abaixo !"),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'Ok')
+          , child: const Text('Ok')
+          )
+        ],
+      ));
     }else {
       showDialog(context: context, builder: (BuildContext context) => AlertDialog(
         title: const Text('Atenção'),
@@ -103,6 +114,13 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  void resetFields() {
+    _brandController.text = "";
+    _typeController.text = "";
+    _modelController.text = "";
+    _nameController.text = "";
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -146,12 +164,24 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   SizedBox(height: 16.0),
-                  ElevatedButton(
-                    onPressed: () {
-                      saveVehicle();
-                    },
-                    child: Text("Enviar")
-                  ),
+                  Row(
+                    children: <Widget>[
+                      ElevatedButton(
+                        onPressed: () {
+                          resetFields();
+                        },
+                        child: Text("Resetar")
+                      ),
+                      SizedBox(width: 10.0),
+                      ElevatedButton(
+                        onPressed: () {
+                          saveVehicle();
+                        },
+                        child: Text("Enviar")
+                      ),
+                    ],
+                  )
+                  
                 ],
               ),
             ),
