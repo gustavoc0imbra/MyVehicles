@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
   
   Future<void>saveVehicle() async {
 
-    if(_brandController.text.trim().isEmpty && _typeController.text.trim().isEmpty && _modelController.text.trim().isEmpty && _nameController.text.trim().isEmpty) {
+    if(_brandController.text.trim().isEmpty || _typeController.text.trim().isEmpty || _modelController.text.trim().isEmpty || _nameController.text.trim().isEmpty) {
       return showDialog(context: context, builder: (BuildContext context) => AlertDialog(
         title: const Text('Atenção'),
         content: const Text('Favor informar todos os dados para salvar!'),
@@ -166,19 +166,23 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(height: 16.0),
                   Row(
                     children: <Widget>[
-                      ElevatedButton(
-                        onPressed: () {
-                          resetFields();
-                        },
-                        child: Text("Resetar")
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            resetFields();
+                          },
+                          child: Text("Resetar")
+                        ),
                       ),
                       SizedBox(width: 10.0),
-                      ElevatedButton(
-                        onPressed: () {
-                          saveVehicle();
-                        },
-                        child: Text("Enviar")
-                      ),
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            saveVehicle();
+                          },
+                          child: Text("Enviar")
+                        ),
+                      )
                     ],
                   )
                   
